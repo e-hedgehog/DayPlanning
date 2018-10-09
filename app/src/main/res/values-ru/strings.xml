@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Планирование Дня</string>
+    <string name="date_format">EEE, d MMMM, yyyy</string>
+    <string name="time_format">HH:mm</string>
+    <string name="plan_time">Время не задано</string>
+    <string name="plan_title">Plan Title</string>
+    <string name="select_date">Выбрать дату</string>
+    <string name="item_title_label">Название</string>
+    <string name="item_title_hint">Введите название пункта плана</string>
+    <string name="item_details_label">Подробности</string>
+    <string name="item_details_hint">Введите подробности для вашего пункта плана</string>
+    <string name="set_time_button">Время</string>
+    <string name="notification_switch">Уведомление:</string>
+    <string name="empty_view">Ничего не запланировано. Нажмите чтобы создать новый пункт плана…</string>
+    <string name="menu_delete">Удалить</string>
+    <string name="notification_title">Событие приближается</string>
+    <string name="notification_text">%1$s начнется через 15 минут</string>
+    <string name="notification_text_now">%1$s начнется менее чем через 15 минут</string>
+    <string name="clear_menu">Очистить</string>
+    <string name="alarm_image_description">Уведомление включено</string>
+    <string name="select_date_dialog">Выберите дату:</string>
+    <string name="select_time_dialog">Выберите время:</string>
+</resources>

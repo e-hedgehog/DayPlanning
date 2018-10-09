@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#bf611a</color>
+    <!--<color name="colorPrimary">#713371</color>-->
+    <color name="colorPrimaryDark">#ac4e06</color>
+    <!--<color name="colorPrimaryDark">#532553</color>-->
+    <color name="colorAccent">#e64759</color>
+
+    <color name="editTextColor">#fa6273</color>
+    <color name="backgroundColor">#e1f5e4</color>
+    <color name="cardViewColor">#ffe0ad</color>
+    <!--<color name="cardviewColor">#e9e7b1</color>-->
+    <!--<color name="cardViewColor">#dad6b6</color>-->
+    <color name="buttonPressedColor">#d23244</color>
+</resources>

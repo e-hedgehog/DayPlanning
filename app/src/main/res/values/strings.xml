@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">DayPlanning</string>
+    <string name="date_format">EEE, MMMM d, yyyy</string>
+    <string name="time_format">hh:mm a</string>
+    <string name="plan_time">Time not defined</string>
+    <string name="plan_title">Plan Title</string>
+    <string name="select_date">Select Date</string>
+    <string name="item_title_label">Title</string>
+    <string name="item_title_hint">Enter a title for the plan item</string>
+    <string name="item_details_label">Details</string>
+    <string name="item_details_hint">Enter some details for your plan item</string>
+    <string name="set_time_button">Set Time</string>
+    <string name="notification_switch">Notification:</string>
+    <string name="empty_view">There is no plans. Tap to create new plan item…</string>
+    <string name="menu_delete">Delete</string>
+    <string name="notification_title">Event is coming</string>
+    <string name="notification_text">%1$s starts in 15 minutes</string>
+    <string name="notification_text_now">%1$s starts in less than 15 minutes</string>
+    <string name="clear_menu">Clear</string>
+    <string name="alarm_image_description">Alarm is on</string>
+    <string name="select_date_dialog">Select date:</string>
+    <string name="select_time_dialog">Select time:</string>
+</resources>
