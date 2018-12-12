@@ -36,7 +36,7 @@ public class DayPlanningFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final String DIALOG_DATE = "DialogDate";
 
-    private TextView mDateTextView;
+//    private TextView mDateTextView;
     private TextView mEmptyView;
     private RecyclerView mRecyclerView;
     private PlanItemAdapter mAdapter;
@@ -81,9 +81,9 @@ public class DayPlanningFragment extends Fragment {
         View view = inflater
                 .inflate(R.layout.fragment_day_planning, container, false);
 
-        mDateTextView = view.findViewById(R.id.date_text_view);
-        String date = DateFormat.format(getString(R.string.date_format), mDate).toString();
-        mDateTextView.setText(date);
+//        mDateTextView = view.findViewById(R.id.date_text_view);
+//        String date = DateFormat.format(getString(R.string.date_format), mDate).toString();
+//        mDateTextView.setText(date);
 
         mEmptyView = view.findViewById(R.id.empty_view);
         mEmptyView.setOnClickListener(v -> newPlanItem());
@@ -174,6 +174,7 @@ public class DayPlanningFragment extends Fragment {
     public void updateUI() {
         DayPlansLab dayPlansLab = DayPlansLab.get(getActivity());
         List<PlanItem> planItems = dayPlansLab.getDatePlansList(mDate);
+
         if (mAdapter == null) {
             mAdapter = new PlanItemAdapter(planItems);
             mRecyclerView.setAdapter(mAdapter);

@@ -1,12 +1,14 @@
 package com.yourmother.android.dayplanning;
 
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +21,6 @@ public class DayPlanningActivity extends AppCompatActivity
     private static final String TAG = "DayPlanningActivity";
 
     private ViewPager mViewPager;
-    private static Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +33,19 @@ public class DayPlanningActivity extends AppCompatActivity
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int i) {
-                calendar = filterDate(Calendar.getInstance());
-                calendar.add(Calendar.DATE, i);
-
-                return DayPlanningFragment.newInstance(calendar.getTime());
+                return DayPlanningFragment.newInstance(getDateInPosition(i));
             }
 
             @Override
             public int getCount() {
                 return 4000;
+            }
+
+            @NonNull
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return DateFormat.format(getString(R.string.date_format),
+                        getDateInPosition(position)).toString();
             }
         });
 
@@ -75,6 +80,12 @@ public class DayPlanningActivity extends AppCompatActivity
             return null;
 
         return adapter.getItem(currentItem);
+    }
+
+    private Date getDateInPosition(int position) {
+        Calendar calendar = filterDate(Calendar.getInstance());
+        calendar.add(Calendar.DATE, position);
+        return calendar.getTime();
     }
 
     private Calendar filterDate(Calendar calendar) {

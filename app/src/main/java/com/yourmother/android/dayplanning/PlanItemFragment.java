@@ -66,7 +66,7 @@ public class PlanItemFragment extends Fragment {
         UUID itemId = (UUID) getArguments().getSerializable(ARG_ITEM_ID);
 
         mPlanItem = DayPlansLab.get(getActivity()).getPlanItem(mDate, itemId);
-        Log.i(TAG, mPlanItem == null ? "fuck" : "ok");
+        Log.i(TAG, mPlanItem == null ? "mPlanItem is null" : "mPlanItem is not null");
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity != null) {
