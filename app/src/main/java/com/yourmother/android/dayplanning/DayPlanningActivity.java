@@ -1,19 +1,17 @@
 package com.yourmother.android.dayplanning;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.View;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import static java.lang.Math.abs;
 
 public class DayPlanningActivity extends AppCompatActivity
         implements DayPlanningFragment.Callbacks{
@@ -49,8 +47,24 @@ public class DayPlanningActivity extends AppCompatActivity
             }
         });
 
+        mViewPager.setPageTransformer(false, (page, position) -> {
+            int pageWidth = page.getWidth();
+            float absPosition = Math.abs(position);
+            float pageWidthTimesPosition = pageWidth * position;
+
+            if (position != 0.0f) {
+                View fab = page.findViewById(R.id.new_item_fab);
+                fab.setAlpha(1.0f - absPosition * 2.5f);
+
+                if (position > -1.0f && position < 0.0f)
+                    fab.setTranslationY(-pageWidthTimesPosition / 2.0f);
+                else if (position > 0.0f && position < 1.0f)
+                    fab.setTranslationY(pageWidthTimesPosition / 2.0f);
+            }
+        });
+
         DayPlansLab.get(this)
-                .deleteDatePlansBefore(filterDate(Calendar.getInstance()).getTime());
+                .deleteDatePlansBefore(DateUtils.filterDate(Calendar.getInstance()).getTime());
     }
 
     @Override
@@ -83,16 +97,8 @@ public class DayPlanningActivity extends AppCompatActivity
     }
 
     private Date getDateInPosition(int position) {
-        Calendar calendar = filterDate(Calendar.getInstance());
+        Calendar calendar = DateUtils.filterDate(Calendar.getInstance());
         calendar.add(Calendar.DATE, position);
         return calendar.getTime();
-    }
-
-    private Calendar filterDate(Calendar calendar) {
-        calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        return calendar;
     }
 }

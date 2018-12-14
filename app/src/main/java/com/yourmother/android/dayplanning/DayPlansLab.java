@@ -8,18 +8,14 @@ import android.util.Log;
 
 import com.yourmother.android.dayplanning.database.DayPlanningBaseHelper;
 import com.yourmother.android.dayplanning.database.DayPlanningCursorWrapper;
-import com.yourmother.android.dayplanning.database.DayPlanningDbSchema;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
-import static com.yourmother.android.dayplanning.database.DayPlanningDbSchema.*;
+import static com.yourmother.android.dayplanning.database.DayPlanningDbSchema.DayPlansTable;
+import static com.yourmother.android.dayplanning.database.DayPlanningDbSchema.PlanItemsTable;
 
 public class DayPlansLab {
 
