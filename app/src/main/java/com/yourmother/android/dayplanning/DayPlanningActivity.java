@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Calendar;
@@ -31,6 +32,7 @@ public class DayPlanningActivity extends AppCompatActivity
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int i) {
+                Log.i(TAG, getDateInPosition(i).toString());
                 return DayPlanningFragment.newInstance(getDateInPosition(i));
             }
 
@@ -69,11 +71,7 @@ public class DayPlanningActivity extends AppCompatActivity
 
     @Override
     public void onDateSelected(Date date) {
-        DayPlanningFragment fragment =
-                (DayPlanningFragment) getCurrentFragment();
-
-        if (fragment != null) {
-            Date currentDate = fragment.getPreviousDate();
+            Date currentDate = getCurrentDate();
 
             if (date.equals(currentDate))
                 return;
@@ -82,19 +80,23 @@ public class DayPlanningActivity extends AppCompatActivity
             int daysBetweenDates = (int) ((date.getTime() - currentDate.getTime()) / millisInDay);
 
             mViewPager.setCurrentItem(daysBetweenDates + mViewPager.getCurrentItem());
-        }
     }
 
-    private Fragment getCurrentFragment() {
-        int currentItem = mViewPager.getCurrentItem();
-        FragmentStatePagerAdapter adapter =
-                (FragmentStatePagerAdapter) mViewPager.getAdapter();
-
-        if (adapter == null)
-            return null;
-
-        return adapter.getItem(currentItem);
+    @Override
+    public Date getCurrentDate() {
+        return getDateInPosition(mViewPager.getCurrentItem());
     }
+
+//    private Fragment getCurrentFragment() {
+//        int currentItem = mViewPager.getCurrentItem();
+//        FragmentStatePagerAdapter adapter =
+//                (FragmentStatePagerAdapter) mViewPager.getAdapter();
+//
+//        if (adapter == null)
+//            return null;
+//
+//        return adapter.getItem(currentItem);
+//    }
 
     private Date getDateInPosition(int position) {
         Calendar calendar = DateUtils.filterDate(Calendar.getInstance());

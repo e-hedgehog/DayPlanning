@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,12 +42,13 @@ public class DayPlanningFragment extends Fragment {
 
     private Date mDate;
     private Callbacks mCallbacks;
-    private static Date mPreviousDate = new Date();
+//    private static Date mPreviousDate = new Date();
 
     private boolean isButtonVisible = true;
 
     public interface Callbacks {
         void onDateSelected(Date date);
+        Date getCurrentDate();
     }
 
     public static DayPlanningFragment newInstance(Date date) {
@@ -69,6 +71,7 @@ public class DayPlanningFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mDate = (Date) getArguments().getSerializable(ARG_DATE);
+        Log.i(TAG, mDate.toString());
     }
 
     @Nullable
@@ -135,7 +138,7 @@ public class DayPlanningFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.select_date:
                 FragmentManager manager = getFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mDate);
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mCallbacks.getCurrentDate());
                 dialog.setTargetFragment(DayPlanningFragment.this, REQUEST_DATE);
                 if (manager != null)
                     dialog.show(manager, DIALOG_DATE);
@@ -155,10 +158,8 @@ public class DayPlanningFragment extends Fragment {
             return;
 
         if (requestCode == REQUEST_DATE) {
-            mPreviousDate = mDate;
             mDate = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCallbacks.onDateSelected(mDate);
-//            updateUI();
         }
     }
 
@@ -193,9 +194,9 @@ public class DayPlanningFragment extends Fragment {
         startActivity(intent);
     }
 
-    public Date getPreviousDate() {
-        return mPreviousDate;
-    }
+//    public Date getPreviousDate() {
+//        return mPreviousDate;
+//    }
 
     private class PlanItemHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
