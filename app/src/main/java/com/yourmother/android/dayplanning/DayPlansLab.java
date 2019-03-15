@@ -180,6 +180,7 @@ public class DayPlansLab {
         values.put(PlanItemsTable.Cols.TIME, time == null ? 0 : time.getTime());
         values.put(PlanItemsTable.Cols.TEXT, planItem.getText());
         values.put(PlanItemsTable.Cols.IS_ALARM_ON, planItem.isAlarmOn() ? 1 : 0);
+        values.put(PlanItemsTable.Cols.STATUS, planItem.getStatus().getValue());
         return values;
     }
 

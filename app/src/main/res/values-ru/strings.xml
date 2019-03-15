@@ -21,4 +21,7 @@
     <string name="alarm_image_description">Уведомление включено</string>
     <string name="select_date_dialog">Выберите дату:</string>
     <string name="select_time_dialog">Выберите время:</string>
+    <string name="menu_set_done">Отметить выполненным</string>
+    <string name="menu_set_failed">Отметить проваленным</string>
+    <string name="menu_share_plan_item">Поделиться планом</string>
 </resources>

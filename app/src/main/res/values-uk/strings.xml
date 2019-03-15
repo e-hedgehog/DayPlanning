@@ -21,4 +21,7 @@
     <string name="alarm_image_description">Повідомлення увімкнене</string>
     <string name="select_date_dialog">Оберіть дату:</string>
     <string name="select_time_dialog">Оберіть час:</string>
+    <string name="menu_set_done">Відмітити виконаним</string>
+    <string name="menu_set_failed">Відмітити проваленим</string>
+    <string name="menu_share_plan_item">Поділитися планом</string>
 </resources>

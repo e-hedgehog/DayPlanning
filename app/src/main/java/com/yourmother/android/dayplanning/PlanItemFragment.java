@@ -163,6 +163,8 @@ public class PlanItemFragment extends Fragment {
         if (requestCode == REQUEST_TIME) {
             Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mPlanItem.setTime(time);
+            mPlanItem.setStatus(DateUtils.isTimeAfterNow(mDate, mPlanItem)
+                    ? PlanItemStatus.UPCOMING : PlanItemStatus.UNDEFINED);
             updateTime();
             updatePlanItem();
             updateSwitch();

@@ -31,6 +31,7 @@ public class DayPlanningBaseHelper extends SQLiteOpenHelper {
                 PlanItemsTable.Cols.TIME + ", " +
                 PlanItemsTable.Cols.TEXT + ", " +
                 PlanItemsTable.Cols.IS_ALARM_ON + ", " +
+                PlanItemsTable.Cols.STATUS + ", " +
                 "foreign key (" + PlanItemsTable.Cols.DATE_ID + ") " +
                 "references " + DayPlansTable.NAME + "(" + DayPlansTable.Cols.DATE_ID + ")" +
                 ")"

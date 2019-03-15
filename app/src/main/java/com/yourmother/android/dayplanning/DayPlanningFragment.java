@@ -218,16 +218,30 @@ public class DayPlanningFragment extends Fragment {
 
         public void bind(PlanItem planItem) {
             mPlanItem = planItem;
-            Date time = mPlanItem.getTime();
+            Date time = planItem.getTime();
             if (time != null) {
                 String timeString = DateFormat
                         .format(getString(R.string.time_format), time).toString();
                 mTimeTextView.setText(timeString);
-            }
+            } else
+                mTimeTextView.setText(R.string.plan_time);
             mTitleTextView.setText(mPlanItem.getTitle());
 
             boolean isAfter = DateUtils.isTimeAfterNow(mDate, mPlanItem);
-            mAlarmImage.setVisibility(mPlanItem.isAlarmOn() && isAfter ? View.VISIBLE : View.GONE);
+            PlanItemStatus status = mPlanItem.getStatus();
+            if (status != PlanItemStatus.UNDEFINED) {
+                mAlarmImage.setVisibility(View.VISIBLE);
+                if (status == PlanItemStatus.DONE)
+                    mAlarmImage.setImageResource(R.drawable.ic_done_black_24dp);
+                else if (status == PlanItemStatus.FAILED)
+                    mAlarmImage.setImageResource(R.drawable.ic_failed_black_24dp);
+                else if (mPlanItem.isAlarmOn() && isAfter)
+                    mAlarmImage.setImageResource(R.drawable.ic_alarm_on_black_24dp);
+                else
+                    mAlarmImage.setVisibility(View.GONE);
+            } else
+                mAlarmImage.setVisibility(View.GONE);
+
         }
 
         @Override
@@ -239,14 +253,33 @@ public class DayPlanningFragment extends Fragment {
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v,
                                         ContextMenu.ContextMenuInfo menuInfo) {
+            menu.add(0, R.id.context_set_done, 0, R.string.menu_set_done)
+                    .setOnMenuItemClickListener(this);
+            menu.add(0, R.id.context_set_failed, 0, R.string.menu_set_failed)
+                    .setOnMenuItemClickListener(this);
+            menu.add(0, R.id.context_share_plan_item, 0, R.string.menu_share_plan_item)
+                    .setOnMenuItemClickListener(this);
             menu.add(0, R.id.context_delete, 0, R.string.menu_delete)
                     .setOnMenuItemClickListener(this);
-
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.context_set_done:
+                    mPlanItem.setStatus(PlanItemStatus.DONE);
+                    DayPlansLab.get(getActivity()).updatePlanItem(mDate, mPlanItem);
+                    updateUI();
+                    return true;
+                case R.id.context_set_failed:
+                    mPlanItem.setStatus(PlanItemStatus.FAILED);
+                    DayPlansLab.get(getActivity()).updatePlanItem(mDate, mPlanItem);
+                    updateUI();
+                    return true;
+                case R.id.context_share_plan_item:
+
+                    //TODO
+
                 case R.id.context_delete:
                     DayPlansLab.get(getActivity()).deletePlanItem(mDate, mPlanItem);
                     updateUI();

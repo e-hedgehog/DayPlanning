@@ -20,4 +20,7 @@
     <string name="alarm_image_description">Alarm is on</string>
     <string name="select_date_dialog">Select date:</string>
     <string name="select_time_dialog">Select time:</string>
+    <string name="menu_set_done">Set done</string>
+    <string name="menu_set_failed">Set failed</string>
+    <string name="menu_share_plan_item">Share plan item</string>
 </resources>

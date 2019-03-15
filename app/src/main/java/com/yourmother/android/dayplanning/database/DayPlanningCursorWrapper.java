@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.yourmother.android.dayplanning.PlanItem;
+import com.yourmother.android.dayplanning.PlanItemStatus;
 
 import java.util.Date;
 import java.util.UUID;
@@ -21,12 +22,15 @@ public class DayPlanningCursorWrapper extends CursorWrapper {
         long time = getLong(getColumnIndex(PlanItemsTable.Cols.TIME));
         String text = getString(getColumnIndex(PlanItemsTable.Cols.TEXT));
         int isAlarmOn = getInt(getColumnIndex(PlanItemsTable.Cols.IS_ALARM_ON));
+        PlanItemStatus status = PlanItemStatus.fromInt(
+                getInt(getColumnIndex(PlanItemsTable.Cols.STATUS)));
 
         PlanItem item = new PlanItem(UUID.fromString(uuidString));
         item.setTitle(title);
         item.setTime(time == 0 ? null : new Date(time));
         item.setText(text);
         item.setAlarmOn(isAlarmOn != 0);
+        item.setStatus(status);
 
         return item;
     }

@@ -20,6 +20,7 @@ public class DayPlanningDbSchema {
             public static final String TIME = "time";
             public static final String TEXT = "text";
             public static final String IS_ALARM_ON = "is_alarm_on";
+            public static final String STATUS = "status";
         }
     }
 }

@@ -9,9 +9,11 @@ public class PlanItem {
     private String mText;
     private Date mTime;
     private boolean isAlarmOn;
+    private PlanItemStatus mStatus;
 
     public PlanItem() {
         this(UUID.randomUUID());
+        mStatus = PlanItemStatus.UNDEFINED;
     }
 
     public PlanItem(UUID id) {
@@ -59,8 +61,17 @@ public class PlanItem {
         isAlarmOn = alarmOn;
     }
 
+    public PlanItemStatus getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(PlanItemStatus status) {
+        mStatus = status;
+    }
+
     @Override
     public String toString() {
         return mTitle;
     }
+
 }

@@ -5,4 +5,16 @@
         android:id="@+id/context_delete"
         android:title="@string/menu_delete" />
 
+    <item
+        android:id="@+id/context_set_done"
+        android:title="@string/menu_set_done" />
+
+    <item
+        android:id="@+id/context_set_failed"
+        android:title="@string/menu_set_failed" />
+
+    <item
+        android:id="@+id/context_share_plan_item"
+        android:title="@string/menu_share_plan_item" />
+
 </menu>
