@@ -9,9 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -198,6 +198,21 @@ public class DayPlanningFragment extends Fragment {
 //        return mPreviousDate;
 //    }
 
+    private String getMessageWithPlanItem(PlanItem planItem) {
+        String dateString = DateUtils.formatDate(getActivity(), mDate);
+        String timeString = DateUtils.formatTime(getActivity(), planItem.getTime());
+        String details = planItem.getText();
+
+        if (timeString == null)
+            timeString = getString(R.string.share_plan_item_not_defined);
+
+        if (details == null)
+            details = getString(R.string.share_plan_item_not_defined);
+
+        return getString(R.string.share_plan_item_content,
+                dateString, planItem.getTitle(), timeString, details);
+    }
+
     private class PlanItemHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
@@ -220,9 +235,7 @@ public class DayPlanningFragment extends Fragment {
             mPlanItem = planItem;
             Date time = planItem.getTime();
             if (time != null) {
-                String timeString = DateFormat
-                        .format(getString(R.string.time_format), time).toString();
-                mTimeTextView.setText(timeString);
+                mTimeTextView.setText(DateUtils.formatTime(getActivity(), time));
             } else
                 mTimeTextView.setText(R.string.plan_time);
             mTitleTextView.setText(mPlanItem.getTitle());
@@ -277,9 +290,14 @@ public class DayPlanningFragment extends Fragment {
                     updateUI();
                     return true;
                 case R.id.context_share_plan_item:
-
-                    //TODO
-
+                    Intent i = ShareCompat.IntentBuilder.from(getActivity())
+                            .setType("text/plain")
+                            .setText(getMessageWithPlanItem(mPlanItem))
+                            .setSubject(getString(R.string.share_plan_item_subject))
+                            .setChooserTitle(R.string.share_plan_item_chooser_title)
+                            .createChooserIntent();
+                    startActivity(i);
+                    return true;
                 case R.id.context_delete:
                     DayPlansLab.get(getActivity()).deletePlanItem(mDate, mPlanItem);
                     updateUI();

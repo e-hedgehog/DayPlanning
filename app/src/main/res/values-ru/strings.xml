@@ -24,4 +24,12 @@
     <string name="menu_set_done">Отметить выполненным</string>
     <string name="menu_set_failed">Отметить проваленным</string>
     <string name="menu_share_plan_item">Поделиться планом</string>
+    <string name="share_plan_item_chooser_title">Поделиться пунктом плана с помощью</string>
+    <string name="share_plan_item_subject">Планирование Дня: пункт плана</string>
+    <string name="share_plan_item_content">
+        В %1$s у меня запланировано \"%2$s\".
+        \nВремя: %3$s.
+        \nПодробности: %4$s.
+    </string>
+    <string name="share_plan_item_not_defined">Не определено</string>
 </resources>

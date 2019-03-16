@@ -24,4 +24,12 @@
     <string name="menu_set_done">Відмітити виконаним</string>
     <string name="menu_set_failed">Відмітити проваленим</string>
     <string name="menu_share_plan_item">Поділитися планом</string>
+    <string name="share_plan_item_chooser_title">Поділитися пунктом плану через</string>
+    <string name="share_plan_item_subject">Планування Дня: пункт плану</string>
+    <string name="share_plan_item_content">
+        У %1$s у мене заплановано \"%2$s\".
+        \nЧас: %3$s.
+        \nПодробиці: %4$s.
+    </string>
+    <string name="share_plan_item_not_defined">Не визначено</string>
 </resources>

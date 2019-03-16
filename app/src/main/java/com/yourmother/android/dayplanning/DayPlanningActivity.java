@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 
@@ -44,8 +43,8 @@ public class DayPlanningActivity extends AppCompatActivity
             @NonNull
             @Override
             public CharSequence getPageTitle(int position) {
-                return DateFormat.format(getString(R.string.date_format),
-                        getDateInPosition(position)).toString();
+                return DateUtils.formatDate(
+                        DayPlanningActivity.this, getDateInPosition(position));
             }
         });
 

@@ -1,5 +1,8 @@
 package com.yourmother.android.dayplanning;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,5 +40,17 @@ public class DateUtils {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         return calendar;
+    }
+
+    public static String formatDate(Context context, Date date) {
+        if (context != null && date != null)
+            return DateFormat.format(context.getString(R.string.date_format), date).toString();
+        return null;
+    }
+
+    public static String formatTime(Context context, Date time) {
+        if (context != null && time != null)
+            return DateFormat.format(context.getString(R.string.time_format), time).toString();
+        return null;
     }
 }

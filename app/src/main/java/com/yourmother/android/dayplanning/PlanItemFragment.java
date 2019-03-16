@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,8 +66,7 @@ public class PlanItemFragment extends Fragment {
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity != null) {
-            String newDate = DateFormat
-                    .format(getString(R.string.date_format), mDate).toString();
+            String newDate = DateUtils.formatDate(activity, mDate);
             activity.getSupportActionBar().setTitle(newDate);
         }
     }
@@ -189,10 +187,8 @@ public class PlanItemFragment extends Fragment {
     }
 
     private void updateTime() {
-        Date time = mPlanItem.getTime();
-        if (time != null) {
-            String timeString = DateFormat
-                    .format(getString(R.string.time_format), time).toString();
+        String timeString = DateUtils.formatTime(getActivity(), mPlanItem.getTime());
+        if (timeString != null) {
             mTimePickerButton.setText(timeString);
 
             AppCompatActivity activity = (AppCompatActivity) getActivity();

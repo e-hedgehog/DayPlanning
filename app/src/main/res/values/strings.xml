@@ -23,4 +23,12 @@
     <string name="menu_set_done">Set done</string>
     <string name="menu_set_failed">Set failed</string>
     <string name="menu_share_plan_item">Share plan item</string>
+    <string name="share_plan_item_chooser_title">Send plan item via</string>
+    <string name="share_plan_item_subject">Day Planning: plan item</string>
+    <string name="share_plan_item_content">
+        On %1$s i have planned \"%2$s\".
+        \nTime: %3$s.
+        \nDetails: %4$s.
+    </string>
+    <string name="share_plan_item_not_defined">Not defined</string>
 </resources>
