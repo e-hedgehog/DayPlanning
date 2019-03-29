@@ -137,11 +137,7 @@ public class DayPlanningFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.select_date:
-                FragmentManager manager = getFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mCallbacks.getCurrentDate());
-                dialog.setTargetFragment(DayPlanningFragment.this, REQUEST_DATE);
-                if (manager != null)
-                    dialog.show(manager, DIALOG_DATE);
+                selectDate();
                 return true;
             case R.id.clear:
                 DayPlansLab.get(getActivity()).deleteDatePlans(mDate);
@@ -158,8 +154,15 @@ public class DayPlanningFragment extends Fragment {
             return;
 
         if (requestCode == REQUEST_DATE) {
-            mDate = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mCallbacks.onDateSelected(mDate);
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            PlanItem planItem = (PlanItem) data.getSerializableExtra(DatePickerFragment.EXTRA_PLAN_ITEM);
+            if (planItem != null) {
+                DayPlansLab.get(getActivity()).addPlanItem(date, planItem);
+                DayPlansLab.get(getActivity()).deletePlanItem(mCallbacks.getCurrentDate(), planItem);
+                updateUI();
+            }
+//            mDate = date;
+            mCallbacks.onDateSelected(date);
         }
     }
 
@@ -192,6 +195,24 @@ public class DayPlanningFragment extends Fragment {
         Intent intent = PlanItemActivity
                 .newIntent(getActivity(), mDate, item.getId());
         startActivity(intent);
+    }
+
+    private void selectDate() {
+        DatePickerFragment dialog = DatePickerFragment.newInstance(mCallbacks.getCurrentDate());
+        showDatePicker(dialog);
+    }
+
+    private void reschedulePlanItem(PlanItem planItem) {
+        DatePickerFragment dialog = DatePickerFragment
+                .newInstance(mCallbacks.getCurrentDate(), planItem);
+        showDatePicker(dialog);
+    }
+
+    private void showDatePicker(DatePickerFragment datePicker) {
+        FragmentManager manager = getFragmentManager();
+        datePicker.setTargetFragment(DayPlanningFragment.this, REQUEST_DATE);
+        if (manager != null)
+            datePicker.show(manager, DIALOG_DATE);
     }
 
 //    public Date getPreviousDate() {
@@ -272,6 +293,8 @@ public class DayPlanningFragment extends Fragment {
                     .setOnMenuItemClickListener(this);
             menu.add(0, R.id.context_share_plan_item, 0, R.string.menu_share_plan_item)
                     .setOnMenuItemClickListener(this);
+            menu.add(0, R.id.context_reschedule, 0, R.string.menu_reschedule)
+                    .setOnMenuItemClickListener(this);
             menu.add(0, R.id.context_delete, 0, R.string.menu_delete)
                     .setOnMenuItemClickListener(this);
         }
@@ -282,11 +305,13 @@ public class DayPlanningFragment extends Fragment {
                 case R.id.context_set_done:
                     mPlanItem.setStatus(PlanItemStatus.DONE);
                     DayPlansLab.get(getActivity()).updatePlanItem(mDate, mPlanItem);
+                    NotificationService.setAlarm(getActivity(), mDate, mPlanItem, false);
                     updateUI();
                     return true;
                 case R.id.context_set_failed:
                     mPlanItem.setStatus(PlanItemStatus.FAILED);
                     DayPlansLab.get(getActivity()).updatePlanItem(mDate, mPlanItem);
+                    NotificationService.setAlarm(getActivity(), mDate, mPlanItem, false);
                     updateUI();
                     return true;
                 case R.id.context_share_plan_item:
@@ -297,6 +322,9 @@ public class DayPlanningFragment extends Fragment {
                             .setChooserTitle(R.string.share_plan_item_chooser_title)
                             .createChooserIntent();
                     startActivity(i);
+                    return true;
+                case R.id.context_reschedule:
+                    reschedulePlanItem(mPlanItem);
                     return true;
                 case R.id.context_delete:
                     DayPlansLab.get(getActivity()).deletePlanItem(mDate, mPlanItem);

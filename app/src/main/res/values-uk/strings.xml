@@ -32,4 +32,5 @@
         \nПодробиці: %4$s.
     </string>
     <string name="share_plan_item_not_defined">Не визначено</string>
+    <string name="menu_reschedule">Перенести</string>
 </resources>

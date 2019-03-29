@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/context_reschedule"
+        android:title="@string/menu_reschedule"/>
+
+    <item
         android:id="@+id/context_delete"
         android:title="@string/menu_delete" />
 

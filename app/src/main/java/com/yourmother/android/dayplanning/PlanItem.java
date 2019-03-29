@@ -1,9 +1,10 @@
 package com.yourmother.android.dayplanning;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class PlanItem {
+public class PlanItem implements Serializable {
     private UUID mId;
     private String mTitle;
     private String mText;

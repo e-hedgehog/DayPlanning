@@ -31,4 +31,5 @@
         \nDetails: %4$s.
     </string>
     <string name="share_plan_item_not_defined">Not defined</string>
+    <string name="menu_reschedule">Reschedule</string>
 </resources>

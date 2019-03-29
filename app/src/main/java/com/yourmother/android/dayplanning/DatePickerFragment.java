@@ -18,8 +18,11 @@ import java.util.GregorianCalendar;
 public class DatePickerFragment extends DialogFragment {
 
     private static final String ARG_DATE = "date";
+    private static final String ARG_PLAN_ITEM = "planItem";
     public static final String EXTRA_DATE =
             "com.yourmother.android.dayplanning.date";
+    public static final String EXTRA_PLAN_ITEM =
+            "com.yourmother.android.dayplanning.plan_item";
 
     private DatePicker mDatePicker;
 
@@ -32,10 +35,19 @@ public class DatePickerFragment extends DialogFragment {
         return fragment;
     }
 
+    public static DatePickerFragment newInstance(Date date, PlanItem planItem) {
+        DatePickerFragment fragment = newInstance(date);
+        Bundle args = fragment.getArguments();
+        if (args != null)
+            args.putSerializable(ARG_PLAN_ITEM, planItem);
+        return fragment;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Date date = (Date) getArguments().getSerializable(ARG_DATE);
+        PlanItem planItem = (PlanItem) getArguments().getSerializable(ARG_PLAN_ITEM);
 
         Calendar calendar = Calendar.getInstance();
 
@@ -61,17 +73,18 @@ public class DatePickerFragment extends DialogFragment {
                             int month = mDatePicker.getMonth();
                             int day = mDatePicker.getDayOfMonth();
                             Date pickedDate = new GregorianCalendar(year, month, day).getTime();
-                            sendResult(Activity.RESULT_OK, pickedDate);
+                            sendResult(Activity.RESULT_OK, pickedDate, planItem);
                         })
                 .create();
     }
 
-    private void sendResult(int resultCode, Date date) {
+    private void sendResult(int resultCode, Date date, PlanItem planItem) {
         if (getTargetFragment() == null)
             return;
 
         Intent intent = new Intent();
         intent.putExtra(EXTRA_DATE, date);
+        intent.putExtra(EXTRA_PLAN_ITEM, planItem);
 
         getTargetFragment()
                 .onActivityResult(getTargetRequestCode(), resultCode, intent);

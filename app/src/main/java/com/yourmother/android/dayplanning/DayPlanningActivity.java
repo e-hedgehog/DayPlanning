@@ -31,7 +31,6 @@ public class DayPlanningActivity extends AppCompatActivity
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int i) {
-                Log.i(TAG, getDateInPosition(i).toString());
                 return DayPlanningFragment.newInstance(getDateInPosition(i));
             }
 
@@ -70,15 +69,29 @@ public class DayPlanningActivity extends AppCompatActivity
 
     @Override
     public void onDateSelected(Date date) {
-            Date currentDate = getCurrentDate();
+        Date currentDate = getCurrentDate();
 
-            if (date.equals(currentDate))
-                return;
+        if (date.equals(currentDate))
+            return;
 
-            final int millisInDay = 1000 * 60 * 60 * 24;
-            int daysBetweenDates = (int) ((date.getTime() - currentDate.getTime()) / millisInDay);
+        final double millisInDay = 1000 * 60 * 60 * 24;
+        double daysBetweenDates = ((date.getTime() - currentDate.getTime()) / millisInDay);
+        daysBetweenDates = daysBetweenDates > 0 ?
+                Math.ceil(daysBetweenDates) : Math.floor(daysBetweenDates);
+        int newCurrentItem = (int) (daysBetweenDates + mViewPager.getCurrentItem());
 
-            mViewPager.setCurrentItem(daysBetweenDates + mViewPager.getCurrentItem());
+        Log.i(TAG, DateUtils.formatDate(this, date) + " | " + DateUtils.formatDate(this, currentDate));
+        Log.i(TAG, "Current item = " + mViewPager.getCurrentItem());
+        Log.i(TAG, "Between = " + daysBetweenDates);
+        Log.i(TAG, "New current item = " + newCurrentItem);
+
+        mViewPager.setCurrentItem(newCurrentItem);
+        FragmentStatePagerAdapter adapter = (FragmentStatePagerAdapter) mViewPager.getAdapter();
+        if (adapter != null) {
+            DayPlanningFragment fragment = (DayPlanningFragment)
+                    adapter.instantiateItem(mViewPager, newCurrentItem);
+            fragment.updateUI();
+        }
     }
 
     @Override

@@ -35,7 +35,8 @@ public class NotificationService {
         }
 
         planItem.setAlarmOn(isOn);
-        planItem.setStatus(PlanItemStatus.UPCOMING);
+        if (isOn)
+            planItem.setStatus(PlanItemStatus.UPCOMING);
         DayPlansLab.get(context).updatePlanItem(date, planItem);
     }
 }
