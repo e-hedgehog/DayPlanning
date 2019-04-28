@@ -32,4 +32,7 @@
     </string>
     <string name="share_plan_item_not_defined">Not defined</string>
     <string name="menu_reschedule">Reschedule</string>
+    <string name="confirm_dialog_title">Confirm your action</string>
+    <string name="confirmation_message_clear">Do you really want to clear this page?</string>
+    <string name="confirmation_message_delete">Do you really want to delete this plan item?</string>
 </resources>

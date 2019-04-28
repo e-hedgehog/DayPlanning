@@ -33,6 +33,7 @@ public class DayPlanningFragment extends Fragment {
     private static final String ARG_DATE = "date";
     private static final int REQUEST_DATE = 0;
     private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_CONFIRMATION = "ConfirmationDialog";
 
 //    private TextView mDateTextView;
     private TextView mEmptyView;
@@ -140,8 +141,12 @@ public class DayPlanningFragment extends Fragment {
                 selectDate();
                 return true;
             case R.id.clear:
-                DayPlansLab.get(getActivity()).deleteDatePlans(mDate);
-                updateUI();
+                ConfirmationDialogFragment
+                        .newInstance(getString(R.string.confirmation_message_clear),
+                                (ConfirmationDialogFragment.OnConfirmListener) () -> {
+                                    DayPlansLab.get(getActivity()).deleteDatePlans(mDate);
+                                    updateUI();
+                                }).show(getFragmentManager(), DIALOG_CONFIRMATION);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -327,8 +332,12 @@ public class DayPlanningFragment extends Fragment {
                     reschedulePlanItem(mPlanItem);
                     return true;
                 case R.id.context_delete:
-                    DayPlansLab.get(getActivity()).deletePlanItem(mDate, mPlanItem);
-                    updateUI();
+                    ConfirmationDialogFragment.newInstance(getString(R.string.confirmation_message_delete),
+                            (ConfirmationDialogFragment.OnConfirmListener) () -> {
+                                DayPlansLab.get(getActivity()).deletePlanItem(mDate, mPlanItem);
+                                updateUI();
+                            }).show(getFragmentManager(), DIALOG_CONFIRMATION);
+
                     return true;
                 default:
                     return false;

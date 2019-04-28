@@ -33,4 +33,7 @@
     </string>
     <string name="share_plan_item_not_defined">Не определено</string>
     <string name="menu_reschedule">Перенести</string>
+    <string name="confirm_dialog_title">Подтвердите ваше действие</string>
+    <string name="confirmation_message_clear">Вы действительно хотите очистить эту страницу?</string>
+    <string name="confirmation_message_delete">Вы действительно хотите удалить эту запись?</string>
 </resources>

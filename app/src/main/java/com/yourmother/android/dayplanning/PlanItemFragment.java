@@ -32,6 +32,7 @@ public class PlanItemFragment extends Fragment {
     private static final String ARG_ITEM_ID = "item_id";
 
     private static final String DIALOG_TIME = "DialogTime";
+    private static final String DIALOG_CONFIRMATION = "ConfirmationDialog";
 
     private static final int REQUEST_TIME = 0;
 
@@ -145,8 +146,12 @@ public class PlanItemFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_item:
-                DayPlansLab.get(getActivity()).deletePlanItem(mDate, mPlanItem);
-                getActivity().finish();
+                ConfirmationDialogFragment.newInstance(getString(R.string.confirmation_message_delete),
+                        (ConfirmationDialogFragment.OnConfirmListener) () -> {
+                            DayPlansLab.get(getActivity()).deletePlanItem(mDate, mPlanItem);
+                            getActivity().finish();
+                        }).show(getFragmentManager(), DIALOG_CONFIRMATION);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
